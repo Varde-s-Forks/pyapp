@@ -1288,7 +1288,40 @@ fn set_metadata_template() {
     }
 }
 
+#[cfg(windows)]
+fn set_windows_icon() {
+    let variable = "PYAPP_WINDOWS_ICON_PATH";
+    println!("cargo:rerun-if-env-changed={variable}");
+
+    let icon_path = env::var(variable).unwrap_or_default();
+    if icon_path.is_empty() {
+        return;
+    }
+
+    let icon_path = PathBuf::from(icon_path);
+    if !icon_path.is_file() {
+        panic!(
+            "\n\nWindows icon path is not a file: {}\n\n",
+            icon_path.display()
+        );
+    }
+
+    println!("cargo:rerun-if-changed={}", icon_path.display());
+
+    let mut resource = winres::WindowsResource::new();
+    resource.set_icon(icon_path.to_string_lossy().as_ref());
+    resource.compile().unwrap_or_else(|_| {
+        panic!(
+            "\n\nFailed to compile Windows resources for icon: {}\n\n",
+            icon_path.display()
+        )
+    });
+}
+
+#[cfg(not(windows))]
+fn set_windows_icon() {}
 fn main() {
+    set_windows_icon();
     set_project();
     set_distribution();
     set_execution_mode();
