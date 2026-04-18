@@ -10,7 +10,7 @@ use highway::PortableHash;
 use rand::distr::{Alphanumeric, SampleString};
 use regex::Regex;
 
-const DEFAULT_PYTHON_VERSION: &str = "3.13";
+const DEFAULT_PYTHON_VERSION: &str = "3.14";
 const KNOWN_DISTRIBUTION_FORMATS: &[&str] = &["tar|bzip2", "tar|gzip", "tar|zstd", "zip"];
 const DEFAULT_CPYTHON_SOURCE: &str =
     "https://github.com/astral-sh/python-build-standalone/releases/download/";
