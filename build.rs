@@ -543,6 +543,9 @@ fn get_distribution_source() -> String {
     let selected_variant_cpu = {
         let legacy_variant = env::var("PYAPP_DISTRIBUTION_VARIANT").unwrap_or_default();
         let mut variant = env::var("PYAPP_DISTRIBUTION_VARIANT_CPU").unwrap_or_default();
+        if selected_platform != "linux" || selected_arch != "x86_64" {
+            variant = String::new();
+        }
         if !legacy_variant.is_empty() {
             if !variant.is_empty() {
                 panic!("\n\nBoth PYAPP_DISTRIBUTION_VARIANT and PYAPP_DISTRIBUTION_VARIANT_CPU are set\n\n");
