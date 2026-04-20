@@ -1,9 +1,11 @@
 use anyhow::Result;
 use clap::{Args, Subcommand};
 
+use crate::commands::cli::CLAP_STYLING;
+
 /// Manage this application
 #[derive(Args, Debug)]
-#[command()]
+#[command(styles = CLAP_STYLING)]
 pub struct Cli {
     #[command(subcommand)]
     command: Commands,
