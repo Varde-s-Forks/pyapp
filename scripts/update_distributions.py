@@ -41,10 +41,9 @@ def get_assets() -> Generator[tuple[str, str]]:
     with Progress() as progress:
         task = progress.add_task("Updating distributions...")
         for page in count(1):
-            has_next = yield from get_asset_page(page, headers, set_total=lambda total: progress.update(task, total=total))
-            progress.advance(task, 1)
-            if not has_next:
+            if not (yield from get_asset_page(page, headers, set_total=lambda total: progress.update(task, total=total))):
                 break
+            progress.advance(task, 1)
 
 
 def get_asset_page(page: int, headers: dict[str, str], *, set_total: Callable[[int], None]) -> Generator[tuple[str, str], None, bool]:
@@ -68,7 +67,7 @@ def get_asset_page(page: int, headers: dict[str, str], *, set_total: Callable[[i
         for asset in release['assets']:
             yield asset['name'], asset['browser_download_url']
 
-    return 'next' in response.links
+    return True
 
 
 def main():

@@ -18,3 +18,7 @@ target/
 
 # Editor configs
 .vscode/
+
+# PyAPP
+src/embed/project
+src/embed/distribution
