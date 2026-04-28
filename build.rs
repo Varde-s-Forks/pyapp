@@ -1288,6 +1288,38 @@ fn set_metadata_template() {
     }
 }
 
+fn set_windows_icon() {
+    let variable = "PYAPP_WINDOWS_ICON_PATH";
+    println!("cargo:rerun-if-env-changed={variable}");
+
+    if env::var("CARGO_CFG_TARGET_OS").unwrap_or_default() != "windows" {
+        return;
+    }
+
+    let icon_path = env::var(variable).unwrap_or_default();
+    if icon_path.is_empty() {
+        return;
+    }
+
+    let icon_path = PathBuf::from(icon_path);
+    if !icon_path.is_file() {
+        panic!(
+            "\n\nWindows icon path is not a file: {}\n\n",
+            icon_path.display()
+        );
+    }
+
+    println!("cargo:rerun-if-changed={}", icon_path.display());
+
+    let mut resource = tauri_winres::WindowsResource::new();
+    resource.set_icon(icon_path.to_string_lossy().as_ref());
+    resource.compile().unwrap_or_else(|_| {
+        panic!(
+            "\n\nFailed to compile Windows resources for icon: {}\n\n",
+            icon_path.display()
+        )
+    });
+}
 fn main() {
     set_project();
     set_distribution();
@@ -1308,6 +1340,7 @@ fn main() {
     set_self_command();
     set_exposed_commands();
     set_metadata_template();
+    set_windows_icon();
 
     // This must come last because it might override a command exposure
     set_skip_install();
