@@ -12,6 +12,7 @@ anyhow = "1.0.100"
 base64 = "0.22.1"
 bzip2 = "0.6.0"
 clap = { version = "4.5.49", features = ["derive"] }
+clap-cargo = "0.18.3"
 directories = "6.0.0"
 flate2 = { version = "1.1.4", features = ["zlib-rs"], default-features = false }
 fs4 = { version = "0.13.0", features = ["sync"] }
