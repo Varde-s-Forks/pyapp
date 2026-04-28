@@ -2,7 +2,7 @@ use std::fs;
 use std::path::PathBuf;
 
 use anyhow::{Context, Result};
-use fs4::fs_std::FileExt;
+use fs4::FileExt;
 
 use crate::terminal;
 
@@ -36,9 +36,9 @@ pub fn acquire_lock(file_path: &PathBuf) -> Result<fs::File> {
         .open(file_path)
         .with_context(|| format!("unable to open lock file {}", file_path.display()))?;
 
-    if lock_file.try_lock_exclusive().is_err() {
+    if FileExt::try_lock(&lock_file).is_err() {
         let spinner = terminal::spinner("Waiting on shared resource".to_string());
-        let result = lock_file.lock_exclusive();
+        let result = FileExt::lock(&lock_file);
         spinner.finish_and_clear();
         result.with_context(|| format!("unable to acquire lock file {}", file_path.display()))?;
     }
