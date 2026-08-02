@@ -1,10 +1,11 @@
 import re
 import sys
-import tomllib
 from itertools import zip_longest
 from pathlib import Path
 
-IGNORED = {'PYAPP_EXPOSE_{}', 'PYAPP_PROJECT_{}'}
+import tomllib
+
+IGNORED = {'PYAPP_EXPOSE_{}', 'PYAPP_PROJECT_{}', 'PYAPP_WINDOWS_ICON_PATH'}
 
 
 def main():
