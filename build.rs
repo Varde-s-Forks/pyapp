@@ -659,12 +659,12 @@ fn set_project() {
             // *.dist-info/ comes last by convention
             for i in (0..archive.len()).rev() {
                 let mut file = archive.by_index(i).unwrap();
-                let entry_path = file.enclosed_name().unwrap().to_string_lossy().to_string();
-                if entry_path.ends_with(".dist-info/METADATA") {
+                if file.name().ends_with(".dist-info/METADATA") && file.enclosed_name().is_some() {
+                    let entry_name = file.name().to_string();
                     let mut metadata = String::new();
                     file.read_to_string(&mut metadata).unwrap();
 
-                    set_project_from_metadata(&metadata, &entry_path);
+                    set_project_from_metadata(&metadata, &entry_name);
                     set_runtime_variable("PYAPP__PROJECT_EMBED_FILE_NAME", file_name);
                     return;
                 }
@@ -675,7 +675,7 @@ fn set_project() {
 
             for file in archive.entries().unwrap() {
                 let mut file = file.unwrap();
-                let entry_path = file.path().unwrap().to_string_lossy().to_string();
+                let entry_path = file.path().unwrap().to_string_lossy().replace('\\', "/");
                 if entry_path.ends_with("/PKG-INFO") && entry_path.matches('/').count() == 1 {
                     let mut metadata = String::new();
                     file.read_to_string(&mut metadata).unwrap();
