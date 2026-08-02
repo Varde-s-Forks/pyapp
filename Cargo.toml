@@ -19,7 +19,7 @@ fs4 = { version = "1.1.0", features = ["sync"] }
 indicatif = { version = "0.18.6", features = ["improved_unicode"] }
 once_cell = "1.21.4"
 os_pipe = "1.2.3"
-reqwest = { version = "0.13.4", features = ["blocking", "native-tls", "http2"], default-features = false }
+reqwest = { version = "0.13.4", features = ["blocking", "native-tls-vendored", "http2"], default-features = false }
 tar = "0.4.46"
 tempfile = "3.27.0"
 zip = "8.6.0"
@@ -31,7 +31,7 @@ flate2 = { version = "1.1.9", features = ["zlib-rs"], default-features = false }
 highway = "1.3.0"
 rand = "0.10.2"
 regex = "1.13.1"
-reqwest = { version = "0.13.4", features = ["blocking", "native-tls", "http2"], default-features = false }
+reqwest = { version = "0.13.4", features = ["blocking", "native-tls-vendored", "http2"], default-features = false }
 tar = "0.4.46"
 tauri-winres = "0.3.6"
 zip = "8.6.0"
