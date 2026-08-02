@@ -17,7 +17,7 @@ defaults:
     shell: bash
 
 env:
-  STABLE_PYTHON_VERSION: "3.13"
+  STABLE_PYTHON_VERSION: "3.14"
 
 jobs:
   test:
@@ -48,16 +48,16 @@ jobs:
           cross: true
         # Windows
         - target: x86_64-pc-windows-msvc
-          os: windows-2022
+          os: windows-2025
           test: true
         - target: i686-pc-windows-msvc
-          os: windows-2022
+          os: windows-2025
         # macOS
         - target: aarch64-apple-darwin
-          os: macos-14
+          os: macos-26
           test: true
         - target: x86_64-apple-darwin
-          os: macos-13
+          os: macos-26-intel
           test: true
 
     env:
@@ -69,11 +69,11 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7.0.1
 
     - name: Set up Python ${{ env.STABLE_PYTHON_VERSION }}
       if: matrix.job.validate
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7.0.0
       with:
         python-version: ${{ env.STABLE_PYTHON_VERSION }}
 
@@ -83,7 +83,7 @@ jobs:
 
     - name: Set up cross compiling
       if: matrix.job.cross
-      uses: taiki-e/install-action@v2
+      uses: taiki-e/install-action@v2.85.6
       with:
         tool: cross
 
