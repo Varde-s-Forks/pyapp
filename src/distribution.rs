@@ -130,7 +130,7 @@ pub fn run_project() -> Result<()> {
     }
     command.args(env::args().skip(1));
 
-    process::exec(command)
+    process::exec_app(command)
         .with_context(|| "project execution failed, consider restoring from scratch")
 }
 

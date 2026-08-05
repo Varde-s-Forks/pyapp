@@ -29,23 +29,23 @@ pub fn wait_for(mut command: Command, message: String) -> Result<(ExitStatus, St
     Ok((result?, output))
 }
 
-#[cfg(unix)]
-pub fn exec(mut command: Command) -> Result<()> {
+pub fn exec_app(command: Command) -> Result<()> {
     if app::is_gui() {
         exec_gui(command)
     } else {
-        Err(command.exec().into())
+        exec(command)
     }
+}
+
+#[cfg(unix)]
+pub fn exec(mut command: Command) -> Result<()> {
+    Err(command.exec().into())
 }
 
 #[cfg(windows)]
 pub fn exec(mut command: Command) -> Result<()> {
-    if app::is_gui() {
-        exec_gui(command)
-    } else {
-        let status = command.status()?;
-        exit(status.code().unwrap_or(1));
-    }
+    let status = command.status()?;
+    exit(status.code().unwrap_or(1));
 }
 
 fn exec_gui(mut command: Command) -> Result<()> {
