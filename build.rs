@@ -739,8 +739,8 @@ fn set_project() {
             // *.dist-info/ comes last by convention
             for i in (0..archive.len()).rev() {
                 let mut file = archive.by_index(i).unwrap();
-                if file.name().ends_with(".dist-info/METADATA") && file.enclosed_name().is_some() {
-                    let entry_name = file.name().to_string();
+                if file.name().unwrap().ends_with(".dist-info/METADATA") && file.enclosed_name().is_some() {
+                    let entry_name = file.name().unwrap().to_string();
                     let mut metadata = String::new();
                     file.read_to_string(&mut metadata).unwrap();
 
