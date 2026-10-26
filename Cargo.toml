@@ -22,7 +22,7 @@ os_pipe = "1.2.3"
 reqwest = { version = "0.13.5", features = ["blocking", "native-tls-vendored", "http2"], default-features = false }
 tar = "0.4.46"
 tempfile = "3.27.0"
-zip = "9.0.4"
+zip = "9.1.2"
 zstd = "0.14.3"
 
 [build-dependencies]
@@ -33,8 +33,8 @@ rand = "0.10.3"
 regex = "1.13.1"
 reqwest = { version = "0.13.5", features = ["blocking", "native-tls-vendored", "http2"], default-features = false }
 tar = "0.4.46"
-tauri-winres = "0.3.6"
-zip = "9.0.4"
+tauri-winres = "0.3.7"
+zip = "9.1.2"
 
 [profile.release]
 panic = "abort"
