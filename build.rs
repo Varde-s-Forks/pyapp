@@ -453,15 +453,15 @@ const DEFAULT_CPYTHON_DISTRIBUTIONS: &[(&str, &str, &str, &str, &str, &str, &str
 #[rustfmt::skip]
 const DEFAULT_PYPY_DISTRIBUTIONS: &[(&str, &str, &str, &str, &str)] = &[
     ("pypy3.11", "linux", "aarch64", "gnu",
-        "https://downloads.python.org/pypy/pypy3.11-v7.3.20-aarch64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy3.11-v8.0.1-aarch64.tar.gz"),
     ("pypy3.11", "linux", "x86_64", "gnu",
-        "https://downloads.python.org/pypy/pypy3.11-v7.3.20-linux64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy3.11-v8.0.1-linux64.tar.gz"),
     ("pypy3.11", "windows", "x86_64", "msvc",
-        "https://downloads.python.org/pypy/pypy3.11-v7.3.20-win64.zip"),
+        "https://downloads.python.org/pypy/pypy3.11-v8.0.1-win64.zip"),
     ("pypy3.11", "macos", "aarch64", "",
-        "https://downloads.python.org/pypy/pypy3.11-v7.3.20-macos_arm64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy3.11-v8.0.1-macos_arm64.tar.gz"),
     ("pypy3.11", "macos", "x86_64", "",
-        "https://downloads.python.org/pypy/pypy3.11-v7.3.20-macos_x86_64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy3.11-v8.0.1-macos_x86_64.tar.gz"),
     ("pypy3.10", "linux", "aarch64", "gnu",
         "https://downloads.python.org/pypy/pypy3.10-v7.3.19-aarch64.tar.bz2"),
     ("pypy3.10", "linux", "x86_64", "gnu",
@@ -483,15 +483,15 @@ const DEFAULT_PYPY_DISTRIBUTIONS: &[(&str, &str, &str, &str, &str)] = &[
     ("pypy3.9", "macos", "x86_64", "",
         "https://downloads.python.org/pypy/pypy3.9-v7.3.16-macos_x86_64.tar.bz2"),
     ("pypy2.7", "linux", "aarch64", "gnu",
-        "https://downloads.python.org/pypy/pypy2.7-v7.3.20-aarch64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy2.7-v8.0.1-aarch64.tar.gz"),
     ("pypy2.7", "linux", "x86_64", "gnu",
-        "https://downloads.python.org/pypy/pypy2.7-v7.3.20-linux64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy2.7-v8.0.1-linux64.tar.gz"),
     ("pypy2.7", "windows", "x86_64", "msvc",
-        "https://downloads.python.org/pypy/pypy2.7-v7.3.20-win64.zip"),
+        "https://downloads.python.org/pypy/pypy2.7-v8.0.1-win64.zip"),
     ("pypy2.7", "macos", "aarch64", "",
-        "https://downloads.python.org/pypy/pypy2.7-v7.3.20-macos_arm64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy2.7-v8.0.1-macos_arm64.tar.gz"),
     ("pypy2.7", "macos", "x86_64", "",
-        "https://downloads.python.org/pypy/pypy2.7-v7.3.20-macos_x86_64.tar.bz2"),
+        "https://downloads.python.org/pypy/pypy2.7-v8.0.1-macos_x86_64.tar.gz"),
 ];
 
 fn set_runtime_variable(name: &str, value: impl Display) {
@@ -910,6 +910,7 @@ fn set_python_path(distribution_source: &str) {
             .last()
             .unwrap()
             .trim_end_matches(".tar.bz2")
+            .trim_end_matches(".tar.gz")
             .trim_end_matches(".zip");
         if on_windows {
             format!(r"{}\pypy.exe", directory)
@@ -975,6 +976,7 @@ fn set_site_packages_path(distribution_source: &str) {
             .last()
             .unwrap()
             .trim_end_matches(".tar.bz2")
+            .trim_end_matches(".tar.gz")
             .trim_end_matches(".zip");
         if python_version == "pypy2.7" {
             if on_windows {
