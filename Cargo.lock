@@ -1157,7 +1157,7 @@ dependencies = [
 
 [[package]]
 name = "pyapp"
-version = "0.31.0+varde"
+version = "0.31.1+varde"
 dependencies = [
  "anyhow",
  "base64",
